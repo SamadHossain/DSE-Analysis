@@ -49,18 +49,32 @@ which reported R² alone.
 | | |
 | --- | --- |
 | File | `DSE_Data.csv` (daily OHLCV, one row per security per trading day) |
-| Source | **Not specified in the original notebook** |
-| Raw records | 1,523,921 |
+| Source | Sunny, MD Abu Sayed (2025). *Dhaka Stock Exchange Historical Data (1999–2025).* Harvard Dataverse. [doi.org/10.7910/DVN/XIFYT1](https://doi.org/10.7910/DVN/XIFYT1) |
+| Raw records (as loaded in this project) | 1,523,921 |
+| Raw records (per dataset description) | 1,684,249 |
 | Date range | 1999-01-02 to 2025-04-08 |
 | Columns | `Trading_Code`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume` |
-| Securities | ~500 trading codes, including indices, bonds and mutual funds before filtering |
+| Securities | 700+ listed companies per the dataset description; ~500 distinct trading codes seen in the file used here, including indices, bonds and mutual funds before filtering |
 
-The raw file is **not committed to this repository.** Its provenance was never
-recorded, so its licence and redistribution terms are unknown, and at roughly 1.5
-million rows it is not a good fit for Git in any case. To run the project, place your
-own copy at `data/raw/DSE_Data.csv`.
+Per the Harvard Dataverse listing, the data was collected primarily from the official
+DSE website and supplemented with other publicly available sources, and is intended
+for informational and research purposes only; the publisher notes that inconsistencies
+or errors may exist and recommends independently verifying any critical figures before
+use.
 
-Establishing and documenting the data source is an outstanding task for the group.
+**Row-count discrepancy.** The dataset description states 1,684,249 rows, while the
+file loaded in this project (`df.info()`) reports 1,523,921. The difference (about
+160,000 rows, roughly 9%) was not investigated as part of this project. Possible
+explanations include a newer snapshot on Harvard Dataverse than the copy the group
+downloaded, or an export/versioning difference — this has not been confirmed either
+way. Anyone re-running this project from a freshly downloaded copy of the dataset
+should expect the exact row counts throughout this README (and the cleaning log in the
+notebook) to shift accordingly.
+
+The raw file is **not committed to this repository**, both because of its size (over
+1.5 million rows) and because the Dataverse listing does not state a redistribution
+licence. To run the project, download the CSV from the DOI above and place it at
+`data/raw/DSE_Data.csv`.
 
 ### Cleaning
 
@@ -184,8 +198,10 @@ securities rather than spread evenly across the panel.
 
 ## Limitations
 
-- **Data provenance is undocumented.** Source, vendor and collection method were never
-  recorded.
+- **Source data quality is not independently verified.** The publisher's own listing
+  states the data may contain inconsistencies and recommends verifying critical
+  figures independently; this project has not done so beyond the cleaning steps in
+  section 4. The unresolved row-count discrepancy noted above is one open question.
 - **Prices are not adjusted** for dividends, bonus issues, rights issues or splits.
   Corporate actions appear as large one-day jumps and are indistinguishable from real
   moves in this dataset; some extreme observed returns are almost certainly this.
@@ -209,7 +225,8 @@ Not implemented in this project:
 - compare against linear, ARIMA and other gradient-boosting baselines
 - reframe the task as directional classification, where the metrics are harder to
   inflate than price-level regression
-- adjust prices for corporate actions, if an adjusted series can be sourced
+- adjust prices for corporate actions, if an adjusted series can be sourced (the
+  Harvard Dataverse dataset used here does not appear to be adjusted)
 - multi-horizon forecasting with recursive prediction and explicit uncertainty
 - rolling-origin (walk-forward) cross-validation instead of a single fixed split
 - per-sector or per-liquidity-tier models rather than one pooled model
@@ -282,7 +299,3 @@ Python, pandas, NumPy, Matplotlib, seaborn, scikit-learn, LightGBM, Jupyter Note
 **Post Graduate Diploma in Data Science**
 **United International University (UIU), Bangladesh**
 **Course Instructor: Ahmed Imran Kabir**
-
-The analysis was originally developed in Google Colab and has since been refactored
-into this repository. `docs/CHANGES.md` records what was altered relative to that
-original notebook.

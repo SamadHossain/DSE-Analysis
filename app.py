@@ -84,9 +84,13 @@ def predict(booster, cols, df):
 
 
 def main():
-    st.set_page_config(page_title="DSE Next-Day Close — Demo", layout="wide")
+    st.set_page_config(
+    page_title="DSE Market Intelligence",
+    page_icon="📈",
+    layout="wide"
+)
 
-    st.title("Dhaka Stock Exchange — Next-Day Close Predictor (Demo)")
+    st.title("Dhaka Stock Exchange — Market Intelligence & Forecasting Dashboard (Demo)")
     st.caption(
         "A live demo of the model from a university data-science project. "
         f"Full write-up, notebook and code: {REPO_URL}"

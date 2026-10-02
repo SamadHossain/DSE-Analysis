@@ -33,6 +33,12 @@ error metrics. Those comparisons, not the headline R², are what indicate whethe
 model carries information. This is a deliberate revision to the original analysis,
 which reported R² alone.
 
+
+# DSE Analysis
+
+🚀 **Live App:** [Open the Streamlit app](https://dse-analysis-9jyutx5vtng8fafm59varz.streamlit.app/)
+
+
 ## Objectives
 
 1. Assess and document the quality of the raw DSE daily price data, and clean it to a
